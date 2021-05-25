@@ -1,0 +1,15 @@
+---
+# handlers file for apache
+- name: restart apache
+  service: name=httpd state=restarted enabled=yes
+
+- name: Check HTTP Service
+  uri:
+    url: http://{{ ansible_default_ipv4.address }}
+    status_code: 200
+
+- name: restart firewall
+  service: name=firewalld state=restarted
+  tags:
+    - firewall
+
